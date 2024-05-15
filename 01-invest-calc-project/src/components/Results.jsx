@@ -1,4 +1,12 @@
+import { calculateInvestmentResults } from '../util/investment.js'
+
 export default function Results({ input }) {
-  console.log(input);
-  return <p>TABLE</p>
-}
+
+  const resultsData = calculateInvestmentResults(input);
+
+  console.log(resultsData);
+
+  return (
+    <p>TABLE</p>
+  )
+};
