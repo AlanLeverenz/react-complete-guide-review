@@ -13,10 +13,19 @@ function App() {
     duration: 10
   });
 
+  function handleChange(inputIdentifier, newValue) {
+    setUserInput(prevUserInput => {
+      return {
+        ...prevUserInput,
+        [inputIdentifier]: newValue
+      }
+    });
+  }
+
   return (
     <>
       <Header />
-      <UserInput />
+      <UserInput userInput={userInput} onChange={handleChange} />
       { /* RESULTS */}
     </>
   )
