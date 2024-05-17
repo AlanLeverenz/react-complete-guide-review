@@ -7,6 +7,19 @@ export default function Results({ input }) {
   console.log(resultsData);
 
   return (
-    <p>TABLE</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Investment Value</th>
+          <th>Interest (Year)</th>
+          <th>Total Interest</th>
+          <th>Invested Capitol</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
   )
 };

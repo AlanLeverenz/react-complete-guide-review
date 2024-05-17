@@ -13,11 +13,12 @@ function App() {
     duration: 10
   });
 
+  // adding a plus sign next to string value converts to number
   function handleChange(inputIdentifier, newValue) {
     setUserInput(prevUserInput => {
       return {
         ...prevUserInput,
-        [inputIdentifier]: newValue
+        [inputIdentifier]: +newValue
       }
     });
   }
