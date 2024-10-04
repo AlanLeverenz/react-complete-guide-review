@@ -1,14 +1,7 @@
 import { useState } from 'react';
-import { styled } from 'styled-components';
+
 import Button from './Button.jsx';
 import Input from './Input.jsx';
-
-const ControlContainer = styled.div`
-display: flex;
-flex-direction: column;
-gap: 0.5rem;
-margin-bottom: 1.5rem;
-`;
 
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState('');
@@ -31,8 +24,8 @@ export default function AuthInputs() {
   const passwordNotValid = submitted && enteredPassword.trim().length < 6;
 
   return (
-    <div id="auth-inputs">
-      <ControlContainer>
+    <div id="auth-inputs" className="w-full max-w-sm p-8 shadow-md">
+      <div>
         <Input
           label="Email"
           invalid={emailNotValid}
@@ -51,7 +44,7 @@ export default function AuthInputs() {
             handleInputChange('password', event.target.value)
           }
         />
-      </ControlContainer>
+      </div>
 
       <div className="actions">
         <button type="button" className="text-button">
