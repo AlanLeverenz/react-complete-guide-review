@@ -3,16 +3,16 @@ import { useState, useRef } from 'react';
 export default function Player() {
 
   const playerName = useRef();
-  // const [enteredPlayerName, setEnteredPlayerName] = useState('');
+  const [enteredPlayerName, setEnteredPlayerName] = useState('');
 
   function handleClick() {
-    // setEnteredPlayerName(playerName.current.value);
+    setEnteredPlayerName(playerName.current.value);
     playerName.current.value = '';
   }
 
   return (
     <section id="player">
-      <h2>Welcome {playerName.current ? playerName.current.value : 'unknown entity'}</h2>
+      <h2>Welcome {enteredPlayerName ?? 'unknown entity'}</h2>
       <p>
         <input
           ref={playerName}
