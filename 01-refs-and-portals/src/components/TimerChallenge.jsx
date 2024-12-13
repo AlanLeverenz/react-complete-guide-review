@@ -1,12 +1,15 @@
 import { useState } from 'react';
 
 export default function TimeChallenge({ title, targetTime }) {
+  const [timerStarted, setTimerStarted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
 
   function handleStart() {
     setTimeout(() => {
       setTimerExpired(true);
     }, targetTime * 1000);
+
+    setTimerStarted(true);
   }
 
   return <section className="challenge">
@@ -17,10 +20,10 @@ export default function TimeChallenge({ title, targetTime }) {
     </p>
     <p>
       <button onClick={handleStart}>
-        Start Challenge
+        {timerStarted ? 'Stop' : 'Start'} Challenge
       </button>
     </p>
-    <p className="">
+    <p className={timerStarted ? 'active' : undefined}>
       Time is running... / Time inactive
     </p>
   </section>
