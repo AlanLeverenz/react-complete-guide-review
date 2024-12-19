@@ -4,7 +4,7 @@ import ResultModal from './ResultModal.jsx';
 
 // let timer;
 
-export default function TimeChallenge({ title, targetTime }) {
+export default function TimerChallenge({ title, targetTime }) {
   const timer = useRef();
 
   const [timerStarted, setTimerStarted] = useState(false);
@@ -24,7 +24,7 @@ export default function TimeChallenge({ title, targetTime }) {
 
   return (
     <>
-      {timeExpired && <ResultModal targetTime={targetTime} result="lost" />}
+      {timerExpired && <ResultModal targetTime={targetTime} result="lost" />}
       <section className="challenge">
         <h2>{title}</h2>
 
