@@ -24,11 +24,10 @@ export default function TimerChallenge({ title, targetTime }) {
     clearTimeout(timer.current);
   }
 
+  // modal is invisible until showModal is applied
   return (
     <>
-      {timerExpired && (
-        <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
-      )}
+      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
