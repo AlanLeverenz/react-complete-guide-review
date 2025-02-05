@@ -1,4 +1,5 @@
 import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function ResultModal({ ref, targetTime, remainingTime, onReset }) {
 
