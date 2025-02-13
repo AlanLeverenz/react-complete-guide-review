@@ -19,10 +19,18 @@ function App() {
     });
   }
 
+  let content;
+
+  if (projectsState.selectedProjectedId === null) {
+    content = <NewProject />
+  } else if (projectsState.selectedProjectId === undefined) {
+    content = <NoProjectSelected onStartAddProject={handleStartAddProject} />
+  }
+
   return (
     <main className="h-screen my-8 flex gap-8">
       <ProjectsSidebar onStartAddProject={handleStartAddProject} />
-      <NoProjectSelected onStartAddProject={handleStartAddProject} />
+      {content}
     </main>
   );
 }
