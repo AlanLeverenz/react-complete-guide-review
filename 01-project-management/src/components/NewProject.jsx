@@ -2,13 +2,23 @@ import { useRef } from 'react';
 
 import Input from './Input.jsx'
 
-export default function NewProject() {
+export default function NewProject({ onAdd }) {
   const title = useRef();
   const description = useRef();
   const dueDate = useRef();
 
   function handleSave() {
+    const enteredTitle = title.current.value;
+    const enteredDescription = description.current.value;
+    const enteredDueDate = dueDate.current.value;
 
+    // validation ...
+
+    onAdd({
+      title: enteredTitle,
+      dscription: enteredDescription,
+      dueDate: enteredDueDate
+    });
   }
 
   return (
