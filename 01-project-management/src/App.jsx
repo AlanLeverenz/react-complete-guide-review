@@ -33,6 +33,8 @@ function App() {
     })
   }
 
+  console.log(projectsState);
+
   let content;
 
   if (projectsState.selectedProjectedId === null) {
