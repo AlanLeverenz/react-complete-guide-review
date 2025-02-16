@@ -19,8 +19,10 @@ export default function NewProject({ onAdd }) {
       enteredDescription.trim() === '' ||
       enteredDueDate.trim() === ''
     ) {
-      modal.current
+      modal.current.open();
+      return;
     }
+
     onAdd({
       title: enteredTitle,
       description: enteredDescription,
@@ -30,7 +32,11 @@ export default function NewProject({ onAdd }) {
 
   return (
     <>
-      <Modal ref={modal} />
+      <Modal ref={modal}>
+        <h2>invalid Input</h2>
+        <p>Oops... looks like you forgot to enter a value.</p>
+      </Modal>
+
       <div className="w-[35rem] mt-16">
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>
