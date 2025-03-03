@@ -7,6 +7,10 @@ export default function NewTask() {
     setEnteredTask(event.target.value);
   }
 
+  function handleClick() {
+    setEnteredTask('');
+  }
+
   return (
     <div className="flex items-center gap-4">
       <input
@@ -15,7 +19,7 @@ export default function NewTask() {
         onChange={handleChange}
         value={enteredTask}
       />
-      <button className="text-stone-700 hover:text-stone-950">Add Task</button>
+      <button onClick={handleClick} className="text-stone-700 hover:text-stone-950">Add Task</button>
     </div>
 
   )
