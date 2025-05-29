@@ -13,8 +13,6 @@ export default function Header() {
     modal.current.open();
   }
 
-  console.log("an update test");
-
   let modalActions = <button>Close</button>;
 
   if (cartQuantity > 0) {
