@@ -26,7 +26,7 @@ function shoppingCartReducer(state, action) {
     } else {
       const product = DUMMY_PRODUCTS.find((product) => product.id === action.payload);
       updatedItems.push({
-        id: id,
+        id: action.payload,
         name: product.title,
         price: product.price,
         quantity: 1,
@@ -34,6 +34,7 @@ function shoppingCartReducer(state, action) {
     }
 
     return {
+      ...state, // not needed here since we have only 1 value
       items: updatedItems,
     };
   }
