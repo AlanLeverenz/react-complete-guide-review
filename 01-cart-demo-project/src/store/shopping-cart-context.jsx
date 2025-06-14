@@ -13,7 +13,7 @@ function shoppingCartReducer(state, action) {
     const updatedItems = [...state.items];
 
     const existingCartItemIndex = updatedItems.findIndex(
-      (cartItem) => cartItem.id === id
+      (cartItem) => cartItem.id === action.payload
     );
     const existingCartItem = updatedItems[existingCartItemIndex];
 
@@ -24,7 +24,7 @@ function shoppingCartReducer(state, action) {
       };
       updatedItems[existingCartItemIndex] = updatedItem;
     } else {
-      const product = DUMMY_PRODUCTS.find((product) => product.id === id);
+      const product = DUMMY_PRODUCTS.find((product) => product.id === action.payload);
       updatedItems.push({
         id: id,
         name: product.title,
