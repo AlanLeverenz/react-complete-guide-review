@@ -39,6 +39,30 @@ function shoppingCartReducer(state, action) {
     };
   }
 
+  if (action.type === 'UPDATE_ITEM') {
+    const updatedItems = [...prevShoppingCart.items];
+    const updatedItemIndex = updatedItems.findIndex(
+      (item) => item.id === productId
+    );
+
+    const updatedItem = {
+      ...updatedItems[updatedItemIndex],
+    };
+
+    updatedItem.quantity += amount;
+
+    if (updatedItem.quantity <= 0) {
+      updatedItems.splice(updatedItemIndex, 1);
+    } else {
+      updatedItems[updatedItemIndex] = updatedItem;
+    }
+
+    return {
+      items: updatedItems,
+      addItemToCart: handleAddItemToCart
+    };
+  };
+
   return state;
 }
 
@@ -63,29 +87,13 @@ export default function CartContextProvider({ children }) {
   }
 
   function handleUpdateCartItemQuantity(productId, amount) {
-    setShoppingCart((prevShoppingCart) => {
-      const updatedItems = [...prevShoppingCart.items];
-      const updatedItemIndex = updatedItems.findIndex(
-        (item) => item.id === productId
-      );
-
-      const updatedItem = {
-        ...updatedItems[updatedItemIndex],
-      };
-
-      updatedItem.quantity += amount;
-
-      if (updatedItem.quantity <= 0) {
-        updatedItems.splice(updatedItemIndex, 1);
-      } else {
-        updatedItems[updatedItemIndex] = updatedItem;
+    shoppingCartDispatch({
+      type: 'UPDATE_ITEM',
+      payload: {
+        productId,
+        amount
       }
-
-      return {
-        items: updatedItems,
-        addItemToCart: handleAddItemToCart
-      };
-    });
+    })
   }
 
   const ctxValue = {
