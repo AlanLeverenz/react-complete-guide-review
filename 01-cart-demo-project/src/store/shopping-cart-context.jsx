@@ -10,10 +10,10 @@ export const CartContext = createContext({
 
 function shoppingCartReducer(state, action) {
   if (action.type === 'ADD_ITEM') {
-    const updatedItems = [...state.items];
+    const updatedItems = [...state.items]; // latest state from React
 
     const existingCartItemIndex = updatedItems.findIndex(
-      (cartItem) => cartItem.id === action.payload
+      (cartItem) => cartItem.id === action.payload // the id of the product
     );
     const existingCartItem = updatedItems[existingCartItemIndex];
 
@@ -34,7 +34,7 @@ function shoppingCartReducer(state, action) {
     }
 
     return {
-      ...state, // not needed here since we have only 1 value
+      ...state, // so we don't lose any values in the items object
       items: updatedItems,
     };
   }
@@ -53,6 +53,7 @@ export default function CartContextProvider({ children }) {
     items: [],
   });
 
+  // used to dispatch an action with a type and payload
   function handleAddItemToCart(id) {
     shoppingCartDispatch({
       type: 'ADD_ITEM',
