@@ -1,4 +1,4 @@
-import { createContext, useState, useReducer } from 'react';
+import { createContext, useReducer } from 'react';
 
 import { DUMMY_PRODUCTS } from '../dummy-products';
 
@@ -40,16 +40,16 @@ function shoppingCartReducer(state, action) {
   }
 
   if (action.type === 'UPDATE_ITEM') {
-    const updatedItems = [...prevShoppingCart.items];
+    const updatedItems = [...state.items];
     const updatedItemIndex = updatedItems.findIndex(
-      (item) => item.id === productId
+      (item) => item.id === action.payload.productId
     );
 
     const updatedItem = {
       ...updatedItems[updatedItemIndex],
     };
 
-    updatedItem.quantity += amount;
+    updatedItem.quantity += action.payload.amount;
 
     if (updatedItem.quantity <= 0) {
       updatedItems.splice(updatedItemIndex, 1);
@@ -58,8 +58,8 @@ function shoppingCartReducer(state, action) {
     }
 
     return {
+      ...state, // so we don't lose data
       items: updatedItems,
-      addItemToCart: handleAddItemToCart
     };
   };
 
@@ -72,10 +72,6 @@ export default function CartContextProvider({ children }) {
       items: [],
     }
   );
-
-  const [shoppingCart, setShoppingCart] = useState({
-    items: [],
-  });
 
   // used to dispatch an action with a type and payload
   function handleAddItemToCart(id) {
@@ -95,7 +91,7 @@ export default function CartContextProvider({ children }) {
       }
     })
   }
-
+  // can use this ctxValue in any component that needs state
   const ctxValue = {
     items: shoppingCartState.items,
     addItemToCart: handleAddItemToCart,
