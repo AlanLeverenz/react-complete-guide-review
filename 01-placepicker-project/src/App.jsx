@@ -31,8 +31,6 @@ function App() {
   }, []);
 
 
-
-
   function handleStartRemovePlace(id) {
     modal.current.open();
     selectedPlace.current = id;
@@ -50,6 +48,16 @@ function App() {
       const place = AVAILABLE_PLACES.find((place) => place.id === id);
       return [place, ...prevPickedPlaces];
     });
+
+    // browser functions (parse creates array, stringify creates string)
+    // this is a side effect but not updating state so useEffect is not needed
+    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+    if (storedIds.indexOf(id) === -1) {
+      localStorage.setItem(
+        'selectedPlaces',
+        JSON.stringify([id, ...storedIds])
+      );
+    }
   }
 
   function handleRemovePlace() {
