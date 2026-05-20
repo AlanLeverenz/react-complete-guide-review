@@ -8,21 +8,29 @@ import logoImg from './assets/logo.png';
 import { sortPlacesByDistance } from './loc.js';
 
 function App() {
+
+  // this executes at the start of the App since it happens without a delay or promise
+  const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+  const storedPlaces = storedIds.map((id) =>
+    AVAILABLE_PLACES.find((place) => place.id === id)
+  );
+
   const modal = useRef();
   const selectedPlace = useRef();
   const [availablePlaces, setAvailablePlaces] = useState([]);
-  const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
 
   // SIDE EFFECT CODE - not directly related to App task
   // get selectedPlaces and set a const for storedPlaces
-  useEffect(() => {
-    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
-    const storedPlaces = storedIds.map((id) =>
-      AVAILABLE_PLACES.find((place) => place.id === id)
-    );
-    // updates state for pickedPlaces
-    setPickedPlaces(storedPlaces);
-  }, []);
+  // will only run once after the App component is loaded
+  // useEffect(() => {
+  //  const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+  //  const storedPlaces = storedIds.map((id) =>
+  //    AVAILABLE_PLACES.find((place) => place.id === id)
+  //  );
+  // updates state for pickedPlaces
+  //  setPickedPlaces(storedPlaces);
+  //}, []);
 
 
   // get user location, uses callback function that is  
