@@ -14,6 +14,17 @@ function App() {
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
   // SIDE EFFECT CODE - not directly related to App task
+  // get selectedPlaces and set a const for storedPlaces
+  useEffect(() => {
+    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+    const storedPlaces = storedIds.map((id) =>
+      AVAILABLE_PLACES.find((place) => place.id === id)
+    );
+    // updates state for pickedPlaces
+    setPickedPlaces(storedPlaces);
+  }, []);
+
+
   // get user location, uses callback function that is  
   // executed by browser when location is found
   // useEffect does not return a value
