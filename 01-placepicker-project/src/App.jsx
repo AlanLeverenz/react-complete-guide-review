@@ -15,23 +15,10 @@ const storedPlaces = storedIds.map((id) =>
 );
 
 function App() {
-  const modal = useRef();
   const selectedPlace = useRef();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [availablePlaces, setAvailablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
-
-  // SIDE EFFECT CODE - not directly related to App task
-  // get selectedPlaces and set a const for storedPlaces
-  // will only run once after the App component is loaded
-  // useEffect(() => {
-  //  const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
-  //  const storedPlaces = storedIds.map((id) =>
-  //    AVAILABLE_PLACES.find((place) => place.id === id)
-  //  );
-  // updates state for pickedPlaces
-  //  setPickedPlaces(storedPlaces);
-  //}, []);
-
 
   // get user location, uses callback function that is  
   // executed by browser when location is found
@@ -51,12 +38,12 @@ function App() {
 
 
   function handleStartRemovePlace(id) {
-    modal.current.open();
+    setModalIsOpen(true);
     selectedPlace.current = id;
   }
 
   function handleStopRemovePlace() {
-    modal.current.close();
+    setModalIsOpen(false);
   }
 
   function handleSelectPlace(id) {
@@ -69,7 +56,7 @@ function App() {
     });
 
     // browser functions (parse creates array, stringify creates string)
-    // this is a side effect but not updating state so useEffect is not needed
+    // this is not updating state so useEffect is not needed
     const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
     if (storedIds.indexOf(id) === -1) {
       localStorage.setItem(
@@ -83,7 +70,7 @@ function App() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
-    modal.current.close();
+    setModalIsOpen(false);
     // fetch stored Ids
     const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
     // filter out ids that don't match what was selected
@@ -93,7 +80,7 @@ function App() {
 
   return (
     <>
-      <Modal ref={modal}>
+      <Modal open={modalIsOpen}>
         <DeleteConfirmation
           onCancel={handleStopRemovePlace}
           onConfirm={handleRemovePlace}
