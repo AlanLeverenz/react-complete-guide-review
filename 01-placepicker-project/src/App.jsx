@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 
 import Places from './components/Places.jsx';
 import { AVAILABLE_PLACES } from './data.js';
@@ -66,17 +66,19 @@ function App() {
     }
   }
 
-  function handleRemovePlace() {
+  // returns the memoized version of itself (stable function)
+  const handleRemovePlace = useCallback(function handleRemovePlace() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
-    setModalIsOpen(false);
+    //setModalIsOpen(false);
+
     // fetch stored Ids
     const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
     // filter out ids that don't match what was selected
     localStorage.setItem('selectedPlaces', JSON.stringify(storedIds.filter((id) => id !== selectedPlace.current))
     );
-  }
+  }, []);
 
   return (
     <>

@@ -16,7 +16,8 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
     }
     // potential for infinite loop if a function is executed again 
     // JS treats it as a different function because it is recreated
-  }, []);
+    // solved with callBack function in the App to avoid infinite loop
+  }, [onConfirm]);
 
 
   return (
