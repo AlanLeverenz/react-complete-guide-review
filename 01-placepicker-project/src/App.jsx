@@ -71,7 +71,7 @@ function App() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
-    //setModalIsOpen(false);
+    setModalIsOpen(false);
 
     // fetch stored Ids
     const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
