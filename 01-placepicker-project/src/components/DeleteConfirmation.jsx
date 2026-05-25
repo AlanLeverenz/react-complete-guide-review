@@ -14,6 +14,8 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
       console.log('Cleaning up timer');
       clearTimeout();
     }
+    // potential for infinite loop if a function is executed again 
+    // JS treats it as a different function because it is recreated
   }, []);
 
 
