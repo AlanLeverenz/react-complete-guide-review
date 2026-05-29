@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function ProgressBar(timer) {
+export default function ProgressBar({ timer }) {
   // add state for the Timer
   const [remainingTime, setRemainingTime] = useState(timer);
   // defines function that will be executed frequently
