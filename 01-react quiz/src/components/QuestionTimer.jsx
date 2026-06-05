@@ -10,7 +10,6 @@ export default function QuestionTimer({ timeout, onTimeout }) {
     setTimeout(onTimeout, timeout);
   }, [timeout, onTimeout])
 
-
   useEffect(() => {
     // for setting the increments of the progress bar
     // useEffect avoids an infinite loop updating remainingTime
@@ -20,7 +19,5 @@ export default function QuestionTimer({ timeout, onTimeout }) {
     }, 100);
   }, []);
 
-
-
-  return <progress id="question-time" />;
+  return <progress id="question-time" max={timeout} value={remainingTime} />;
 }
