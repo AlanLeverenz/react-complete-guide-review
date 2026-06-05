@@ -9,14 +9,6 @@ export default function Quiz() {
   const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  // function shuffle(shuffledAnswers) {
-  //   for (let i = array.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-  //   }
-  //   return shuffledAnswers;
-  // }
-
   function handleSelectAnswer(selectedAnswer) {
     setUserAnswers((prevUserAnswers) => {
       return [...prevUserAnswers, selectedAnswer];
@@ -33,7 +25,14 @@ export default function Quiz() {
   }
 
   const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
-  shuffledAnswers.sort(() => Math.random() - 0.5);
+  // shuffledAnswers.sort(() => Math.random() - 0.5);
+  function shuffle(shuffledAnswers) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+    return shuffledAnswers;
+  }
 
   return (
     <div id="quiz">
