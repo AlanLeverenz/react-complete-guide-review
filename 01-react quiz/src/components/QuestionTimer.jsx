@@ -7,15 +7,17 @@ export default function QuestionTimer({ timeout, onTimeout }) {
   // apply useEffect to avoid creating multiple timers
   // will run only if/when the dependencies change
   useEffect(() => {
+    console.log('SETTING TIMEOUT');
     setTimeout(onTimeout, timeout);
-  }, [timeout, onTimeout])
+  }, [timeout, onTimeout]);
 
   useEffect(() => {
     // for setting the increments of the progress bar
     // useEffect avoids an infinite loop updating remainingTime
     // it runs only once if there are no dependencies
+    console.log('SETTING INTERVAL');
     setInterval(() => {
-      setRemainingTime(prevRemainingTime => prevRemainingtime - 100);
+      setRemainingTime(prevRemainingTime => prevRemainingTime - 100);
     }, 100);
   }, []);
 
