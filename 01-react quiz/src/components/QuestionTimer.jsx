@@ -8,7 +8,12 @@ export default function QuestionTimer({ timeout, onTimeout }) {
   // will run only if/when the dependencies change
   useEffect(() => {
     console.log('SETTING TIMEOUT');
-    setTimeout(onTimeout, timeout);
+    const timer = setTimeout(onTimeout, timeout);
+
+    // needs a cleanup function to avoid setting another setTimeout
+    return () => {
+      clearTimeout(timer);
+    }
   }, [timeout, onTimeout]);
 
   useEffect(() => {
@@ -16,9 +21,14 @@ export default function QuestionTimer({ timeout, onTimeout }) {
     // useEffect avoids an infinite loop updating remainingTime
     // it runs only once if there are no dependencies
     console.log('SETTING INTERVAL');
-    setInterval(() => {
+    const interval = setInterval(() => {
       setRemainingTime(prevRemainingTime => prevRemainingTime - 100);
     }, 100);
+
+    // needs a cleanup function to avoid setting another setInterval
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return <progress id="question-time" max={timeout} value={remainingTime} />;

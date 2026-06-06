@@ -39,10 +39,14 @@ export default function Quiz() {
   }
 
   // null is a placeholder for handleSelectAnswer
+  // the QuestionTimer as not being reset when the question changes
+  // use a key. whenever it changes React will destroy the 
+  // old component and create a new one (unmount and mount)
   return (
     <div id="quiz">
       <div id="question">
         <QuestionTimer
+          key={activeQuestionIndex}
           timeout={10000}
           onTimeout={handleSkipAnswer}
         />
