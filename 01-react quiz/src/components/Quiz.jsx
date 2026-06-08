@@ -9,7 +9,9 @@ export default function Quiz() {
   const [answerState, setAnswerState] = useState('');
   const [userAnswers, setUserAnswers] = useState([]);
 
-  const activeQuestionIndex = userAnswers.length;
+  const activeQuestionIndex =
+    // to stay on a question until it has been answered
+    answerState === '' ? userAnswers.length : userAnswers.length - 1;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
   const handleSelectAnswer = useCallback(function handleSelectAnswer
@@ -28,10 +30,15 @@ export default function Quiz() {
       } else {
         setAnswerState('wrong');
       }
+
+      // another timeout clearing answerState to empty string after 2 seconds
+      setTimeout(() => {
+        setAnswerState('');
+      }, 2000);
       // console.log('answer is ' & { answerState });
     }, 1000);
   },
-    []);
+    [activeQuestionIndex]);
 
   const handleSkipAnswer = useCallback(() => handleSelectAnswer(null), [handleSelectAnswer]);
 
