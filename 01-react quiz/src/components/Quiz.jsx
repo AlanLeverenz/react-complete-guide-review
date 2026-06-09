@@ -76,11 +76,31 @@ export default function Quiz() {
         />
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
         <ul id="answers">
-          {shuffledAnswers.map((answer) => (
-            <li key={answer} className="answer">
-              <button onClick={() => handleSelectAnswer(answer)}>{answer}</button>
-            </li>
-          ))}
+          {shuffledAnswers.map((answer) => {
+            // logic for highlighting answers
+            const isSelected = userAnswer[userAnswers.length - 1] === answer;
+            let cssClass = '';
+
+            if (answer === 'answered' && isSelected) {
+              cssClass = 'selected';
+            }
+
+            if ((answerState === 'correct' || answerState === 'wrong') && isSelected) {
+              cssClass = answerState;
+            }
+
+            return (
+              // key helps React organize the list
+              <li key={answer} className="answer">
+                <button
+                  onClick={() => handleSelectAnswer(answer)}
+                  className={cssClass}
+                >
+                  {answer}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
