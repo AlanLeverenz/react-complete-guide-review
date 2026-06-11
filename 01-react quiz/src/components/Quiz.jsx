@@ -11,13 +11,14 @@ export default function Quiz() {
 
   const activeQuestionIndex =
     // to stay on a question until it has been answered
+    // userAnswers array builds as each question is answered
     answerState === '' ? userAnswers.length : userAnswers.length - 1;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
   const handleSelectAnswer = useCallback(function handleSelectAnswer
     (selectedAnswer
     ) {
-    // console.log('INDEX = ' & { activeQuestionIndex });
+    // console.log('ACTIVE QUESTION INDEX = ' & { activeQuestionIndex });
     setAnswerState('answered');
     setUserAnswers((prevUserAnswers) => {
       return [...prevUserAnswers, selectedAnswer];
@@ -78,7 +79,7 @@ export default function Quiz() {
         <ul id="answers">
           {shuffledAnswers.map((answer) => {
             // logic for highlighting answers
-            const isSelected = userAnswer[userAnswers.length - 1] === answer;
+            const isSelected = userAnswers[userAnswers.length - 1] === answer;
             let cssClass = '';
 
             if (answer === 'answered' && isSelected) {
