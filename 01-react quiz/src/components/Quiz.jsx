@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 import QUESTIONS from '../questions.js';
 import QuestionTimer from './QuestionTimer.jsx';
@@ -6,6 +6,8 @@ import quizCompleteImg from '../assets/quiz-complete.png';
 
 export default function Quiz() {
   // added state for answers
+  // useRef does not change value if the component is rendered again
+  const shuffledAnswers = useRef();
   const [answerState, setAnswerState] = useState('');
   const [userAnswers, setUserAnswers] = useState([]);
 
@@ -52,16 +54,20 @@ export default function Quiz() {
     )
   }
 
-  const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
-  // shuffledAnswers.sort(() => Math.random() - 0.5);
-  // the Fisher-Yates Shuffle algorithm
-  function shuffle(shuffledAnswers) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-    }
-    return shuffledAnswers;
+  // shuffledAnswers is now a ref
+  // if it is undefined (not yet shuffled) then shuffled it
+  if (!shuffledAnswers.current) {
+    shuffledAnswers.current = [...QUESTIONS[activeQuestionIndex].answers];
+    shuffledAnswers.sort(() => Math.random() - 0.5);
   }
+  // the Fisher-Yates Shuffle algorithm
+  // function shuffle(shuffledAnswers) {
+  //   for (let i = array.length - 1; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1));
+  //     [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  //   }
+  //   return shuffledAnswers;
+  // }
 
   // null is a placeholder for handleSelectAnswer
   // the QuestionTimer as not being reset when the question changes
