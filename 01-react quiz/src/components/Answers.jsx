@@ -36,7 +36,8 @@ export default function Answers({ answers, selectedAnswer, answerState, onSelect
         }
 
         return (
-          // key helps React organize the list
+          // key helps React organize the list and 
+          // unmount and mount a component
           <li key={answer} className="answer">
             <button
               onClick={() => onSelect(answer)}

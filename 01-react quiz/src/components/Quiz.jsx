@@ -54,7 +54,8 @@ export default function Quiz() {
 
   // null is a placeholder for handleSelectAnswer
   // whenever the quesion is answered (changes) React will destroy the 
-  // old component and create a new one (unmount and mount)
+  // old component and create a new one (unmount and mount).
+  // the key helps React know when to do this, differentiating answers
 
   return (
     <div id="quiz">
@@ -66,9 +67,10 @@ export default function Quiz() {
         />
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
         <Answers
+          key={activeQuestionIndex}
           answers={QUESTIONS[activeQuestionIndex].answers}
           selectedAnswer={userAnswers[userAnswers.length - 1]}
-          answersState={answerState}
+          answerState={answerState}
           onSelect={handleSelectAnswer}
         />
       </div>
