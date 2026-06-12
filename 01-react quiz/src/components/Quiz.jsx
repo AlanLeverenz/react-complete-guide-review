@@ -1,13 +1,12 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 
 import QUESTIONS from '../questions.js';
 import QuestionTimer from './QuestionTimer.jsx';
+import Answers from './Answers.jsx';
 import quizCompleteImg from '../assets/quiz-complete.png';
 
 export default function Quiz() {
   // added state for answers
-  // useRef does not change value if the component is rendered again
-  const shuffledAnswers = useRef();
   const [answerState, setAnswerState] = useState('');
   const [userAnswers, setUserAnswers] = useState([]);
 
@@ -20,7 +19,6 @@ export default function Quiz() {
   const handleSelectAnswer = useCallback(function handleSelectAnswer
     (selectedAnswer
     ) {
-    // console.log('ACTIVE QUESTION INDEX = ' & { activeQuestionIndex });
     setAnswerState('answered');
     setUserAnswers((prevUserAnswers) => {
       return [...prevUserAnswers, selectedAnswer];
@@ -54,25 +52,10 @@ export default function Quiz() {
     )
   }
 
-  // shuffledAnswers is now a ref and won't change once answers are shuffled
-  // if it is undefined (not yet shuffled) then shuffled it
-  if (!shuffledAnswers.current) {
-    shuffledAnswers.current = [...QUESTIONS[activeQuestionIndex].answers];
-    shuffledAnswers.current.sort(() => Math.random() - 0.5);
-  }
-  // the Fisher-Yates Shuffle algorithm
-  // function shuffle(shuffledAnswers) {
-  //   for (let i = array.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-  //   }
-  //   return shuffledAnswers;
-  // }
-
   // null is a placeholder for handleSelectAnswer
-  // the QuestionTimer as not being reset when the question changes
-  // use a key. whenever it changes React will destroy the 
+  // whenever the quesion is answered (changes) React will destroy the 
   // old component and create a new one (unmount and mount)
+
   return (
     <div id="quiz">
       <div id="question">
@@ -82,33 +65,12 @@ export default function Quiz() {
           onTimeout={handleSkipAnswer}
         />
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
-        <ul id="answers">
-          {shuffledAnswers.current.map((answer) => {
-            // logic for highlighting answers
-            const isSelected = userAnswers[userAnswers.length - 1] === answer;
-            let cssClass = '';
-
-            if (answer === 'answered' && isSelected) {
-              cssClass = 'selected';
-            }
-
-            if ((answerState === 'correct' || answerState === 'wrong') && isSelected) {
-              cssClass = answerState;
-            }
-
-            return (
-              // key helps React organize the list
-              <li key={answer} className="answer">
-                <button
-                  onClick={() => handleSelectAnswer(answer)}
-                  className={cssClass}
-                >
-                  {answer}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        <Answers
+          answers={QUESTIONS[activeQuestionIndex].answers}
+          selectedAnswer={userAnswers[userAnswers.length - 1]}
+          answersState={answerState}
+          onSelect={handleSelectAnswer}
+        />
       </div>
     </div>
   );
