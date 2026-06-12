@@ -54,11 +54,11 @@ export default function Quiz() {
     )
   }
 
-  // shuffledAnswers is now a ref
+  // shuffledAnswers is now a ref and won't change once answers are shuffled
   // if it is undefined (not yet shuffled) then shuffled it
   if (!shuffledAnswers.current) {
     shuffledAnswers.current = [...QUESTIONS[activeQuestionIndex].answers];
-    shuffledAnswers.sort(() => Math.random() - 0.5);
+    shuffledAnswers.current.sort(() => Math.random() - 0.5);
   }
   // the Fisher-Yates Shuffle algorithm
   // function shuffle(shuffledAnswers) {
@@ -83,7 +83,7 @@ export default function Quiz() {
         />
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
         <ul id="answers">
-          {shuffledAnswers.map((answer) => {
+          {shuffledAnswers.current.map((answer) => {
             // logic for highlighting answers
             const isSelected = userAnswers[userAnswers.length - 1] === answer;
             let cssClass = '';
