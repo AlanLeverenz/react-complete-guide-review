@@ -1,5 +1,5 @@
-import QuestionTimer from './QuestionTimer';
-import Answers from './Answers';
+import QuestionTimer from './QuestionTimer.jsx';
+import Answers from './Answers.jsx';
 
 export default function Question({
   questionText,

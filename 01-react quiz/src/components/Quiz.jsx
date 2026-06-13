@@ -35,7 +35,6 @@ export default function Quiz() {
       setTimeout(() => {
         setAnswerState('');
       }, 2000);
-      // console.log('answer is ' & { answerState });
     }, 1000);
   },
     [activeQuestionIndex]);
@@ -64,7 +63,7 @@ export default function Quiz() {
         answers={QUESTIONS[activeQuestionIndex].answers}
         selectedAnswer={userAnswers[userAnswers.length - 1]}
         answerState={answerState}
-        onSelect={handleSelectAnswer}
+        onSelectAnswer={handleSelectAnswer}
         onSkipAnswer={handleSkipAnswer}
       />
     </div>
