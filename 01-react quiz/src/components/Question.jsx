@@ -29,6 +29,12 @@ export default function Question({
         selectedAnswer: answer,
         isCorrect: QUESTIONS[key].answers[0] === answer
       })
+
+      // calls function from Quiz that indicates an answer has been selected, 
+      // adds it to the array of answers, and determines if it is correct or not
+      setTimeout(() => {
+        onSelectAnswer(answer);
+      }, 2000);
     }, 1000);
   }
 
