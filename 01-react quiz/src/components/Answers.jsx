@@ -23,11 +23,13 @@ export default function Answers({ answers, selectedAnswer, answerState, onSelect
           cssClass = answerState;
         }
 
+        // disable button if an answer has been selected so it cannot be changed
         return (
           <li key={answer} className="answer">
             <button
               onClick={() => onSelect(answer)}
-              className={cssClass}>
+              className={cssClass}
+              disabled={answerState !== ''}>
               {answer}
             </button>
           </li>
