@@ -5,11 +5,8 @@ import Answers from './Answers.jsx';
 import QUESTIONS from '../questions.js';
 
 export default function Question({
-  key,
-  questionText,
-  answers,
+  index,
   onSelectAnswer,
-  selectedAnswer,
   onSkipAnswer
 }) {
 
@@ -27,7 +24,7 @@ export default function Question({
     setTimeout(() => {
       setAnswer({
         selectedAnswer: answer,
-        isCorrect: QUESTIONS[key].answers[0] === answer
+        isCorrect: QUESTIONS[index].answers[0] === answer
       })
 
       // calls function from Quiz that indicates an answer has been selected, 
@@ -40,21 +37,25 @@ export default function Question({
 
   let answerState = '';
 
-  if (answer.selectedAnswer) {
+  if (answer.selectedAnswer && answer.isCorrect !== null) {
     answerState = answer.isCorrect ? 'correct' : 'wrong';
+  } else if (answer.seletedAnswer) {
+    answerState = 'answered'
   }
 
-  return <div id="question">
-    <QuestionTimer
-      timeout={10000}
-      onTimeout={onSkipAnswer}
-    />
-    <h2>{questionText}</h2>
-    <Answers
-      answers={answers}
-      selectedAnswer={selectedAnswer}
-      answerState={answerState}
-      onSelect={handleSelectAnswer}
-    />
-  </div>
+  return (
+    <div id="question">
+      <QuestionTimer
+        timeout={10000}
+        onTimeout={onSkipAnswer}
+      />
+      <h2>{QUESTIONS[index].text}</h2>
+      <Answers
+        answers={QUESTIONS[index].answers}
+        selectedAnswer={answer.selectedAnswer}
+        answerState={answerState}
+        onSelect={handleSelectAnswer}
+      />
+    </div>
+  )
 }

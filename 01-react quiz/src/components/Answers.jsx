@@ -22,7 +22,7 @@ export default function Answers({ answers, selectedAnswer, answerState, onSelect
         if ((answerState === 'correct' || answerState === 'wrong') && isSelected) {
           cssClass = answerState;
         }
-        console.log('ANSWER : ' & answer);
+
         return (
           <li key={answer} className="answer">
             <button
