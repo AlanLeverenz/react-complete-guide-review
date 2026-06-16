@@ -15,6 +15,19 @@ export default function Question({
     isCorrect: null
   })
 
+  let timer = 10000;
+
+  // reset timer to one second after an answer is selected
+  if (answer.selectedAnswer) {
+    timer = 1000;
+  }
+
+  // reset the timer to two seconds to tell the user if it is correct or not
+  if (answer.isCorrect !== null) {
+    timer = 2000;
+  }
+
+
   function handleSelectAnswer(answer) {
     setAnswer({
       selectedAnswer: answer,
@@ -46,8 +59,9 @@ export default function Question({
   return (
     <div id="question">
       <QuestionTimer
-        timeout={10000}
+        timeout={timer}
         onTimeout={onSkipAnswer}
+        mode={answerState}
       />
       <h2>{QUESTIONS[index].text}</h2>
       <Answers
