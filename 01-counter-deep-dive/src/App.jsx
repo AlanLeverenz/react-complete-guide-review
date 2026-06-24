@@ -15,7 +15,7 @@ function App() {
     setChosenCount(newCount)
   }
 
-  // state changes in child components don't cause the parent to render
+  // state changes in child components don't cause the parent to re-render
   return (
     <>
       <Header />
