@@ -30,7 +30,7 @@ function isPrime(number) {
 const Counter = memo(function Counter({ initialCount }) {
   log('<Counter /> rendered', 1);
 
-  const initialCountIsPrime = useMemo(() => isPrime(initialCount));
+  const initialCountIsPrime = useMemo(() => isPrime(initialCount), [initialCount]);
 
   const [counter, setCounter] = useState(initialCount);
 
