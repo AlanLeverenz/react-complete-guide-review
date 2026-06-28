@@ -66,7 +66,7 @@ const Counter = memo(function Counter({ initialCount }) {
           Increment
         </IconButton>
       </p>
-      <CounterHistory />
+      <CounterHistory history={counterChanges} />
     </section>
   );
 });
