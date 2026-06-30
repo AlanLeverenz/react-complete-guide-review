@@ -16,12 +16,15 @@ function App() {
   }
 
   // state changes in child components don't cause the parent to re-render
+  // use key to reset the counter value. when the key value changes 
+  // react throws away the old component instance and recreates it
+
   return (
     <>
       <Header />
       <main>
         <ConfigureCounter onSet={handleSetCount} />
-        <Counter initialCount={chosenCount} />
+        <Counter key={chosenCount} initialCount={chosenCount} />
         <Counter initialCount={0} />
       </main>
     </>
