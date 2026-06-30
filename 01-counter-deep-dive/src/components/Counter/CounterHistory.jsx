@@ -9,6 +9,7 @@ function HistoryItem({ count }) {
 
   function handleClick() {
     setSelected((prevSelected) => !prevSelected);
+    //console.log("Selected = " & selected);
   }
 
   return (
