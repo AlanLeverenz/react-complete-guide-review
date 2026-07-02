@@ -12,7 +12,8 @@ function App() {
   const [chosenCount, setChosenCount] = useState(0);
 
   function handleSetCount(newCount) {
-    setChosenCount(newCount)
+    setChosenCount(newCount);
+    console.log(chosenCount);
   }
 
   // state changes in child components don't cause the parent to re-render
