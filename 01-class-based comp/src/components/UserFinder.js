@@ -12,6 +12,7 @@ const DUMMY_USERS = [
 class UserFinder extends Component {
   // state properties
   constructor() {
+    super();
     this.state = {
       filteredUsers: DUMMY_USERS,
       searchTerm: '',
@@ -20,12 +21,15 @@ class UserFinder extends Component {
 
   // in place of useEffect (with dependency)
   // will update the this.state object
-  componentDidUpdate() {
-    this.setState({
-      filteredUsers: DUMMY_USERS.filter((user) =>
-        user.name.includes(searchTerm)
-      ),
-    })
+  // the props are the last snapshot before the searchTerm is updated
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.searchTerm !== this.state.searchTerm) {
+      this.setState({
+        filteredUsers: DUMMY_USERS.filter((user) =>
+          user.name.includes(this.state.searchTerm)
+        ),
+      })
+    }
   }
   // used as a method within the class - to update search term
   // always setState to an object which will be merged to state object
@@ -47,28 +51,28 @@ class UserFinder extends Component {
   }
 }
 
-const UserFinder = () => {
-  const [filteredUsers, setFilteredUsers] = useState(DUMMY_USERS);
-  const [searchTerm, setSearchTerm] = useState('');
+// const UserFinder = () => {
+//   const [filteredUsers, setFilteredUsers] = useState(DUMMY_USERS);
+//   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    setFilteredUsers(
-      DUMMY_USERS.filter((user) => user.name.includes(searchTerm))
-    );
-  }, [searchTerm]);
+//   useEffect(() => {
+//     setFilteredUsers(
+//       DUMMY_USERS.filter((user) => user.name.includes(searchTerm))
+//     );
+//   }, [searchTerm]);
 
-  const searchChangeHandler = (event) => {
-    setSearchTerm(event.target.value);
-  };
+//   const searchChangeHandler = (event) => {
+//     setSearchTerm(event.target.value);
+//   };
 
-  return (
-    <Fragment>
-      <div className={classes.finder}>
-        <input type='search' onChange={searchChangeHandler} />
-      </div>
-      <Users users={filteredUsers} />
-    </Fragment>
-  );
-};
+//   return (
+//     <Fragment>
+//       <div className={classes.finder}>
+//         <input type='search' onChange={searchChangeHandler} />
+//       </div>
+//       <Users users={filteredUsers} />
+//     </Fragment>
+//   );
+// };
 
 export default UserFinder;
