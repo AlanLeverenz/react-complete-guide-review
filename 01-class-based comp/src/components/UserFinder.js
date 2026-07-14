@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect, Component } from 'react';
 
 import Users from './Users';
 import classes from './UserFinder.module.css';
@@ -8,6 +8,44 @@ const DUMMY_USERS = [
   { id: 'u2', name: 'Manuel' },
   { id: 'u3', name: 'Julie' },
 ];
+
+class UserFinder extends Component {
+  // state properties
+  constructor() {
+    this.state = {
+      filteredUsers: DUMMY_USERS,
+      searchTerm: '',
+    }
+  }
+
+  // in place of useEffect (with dependency)
+  // will update the this.state object
+  componentDidUpdate() {
+    this.setState({
+      filteredUsers: DUMMY_USERS.filter((user) =>
+        user.name.includes(searchTerm)
+      ),
+    })
+  }
+  // used as a method within the class - to update search term
+  // always setState to an object which will be merged to state object
+  searchChangeHandler(event) {
+    this.setState({ searchTerm: event.target.value });
+  }
+
+  // must render the updated values to the DOM
+  // and bind the input to the (this) state
+  render() {
+    return (
+      <Fragment>
+        <div className={classes.finder}>
+          <input type='search' onChange={this.searchChangeHandler.bind(this)} />
+        </div>
+        <Users users={this.state.filteredUsers} />
+      </Fragment>
+    );
+  }
+}
 
 const UserFinder = () => {
   const [filteredUsers, setFilteredUsers] = useState(DUMMY_USERS);
