@@ -19,6 +19,12 @@ class UserFinder extends Component {
     }
   }
 
+  // to complete an action only once
+  componentDidMount() {
+    // Send http request...
+    this.setState({ filteredUsers: DUMMY_USERS });
+  }
+
   // in place of useEffect (with dependency)
   // will update the this.state object
   // the props are the last snapshot before the searchTerm is updated
