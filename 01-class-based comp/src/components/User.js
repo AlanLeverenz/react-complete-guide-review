@@ -2,7 +2,12 @@ import { Component } from 'react'
 
 import classes from './User.module.css';
 
+// console message is displayed each time User component renders
 class User extends Component {
+  componentWillUnmount() {
+    console.log('User will unmount');
+  }
+
   render() {
     return <li className={classes.user}>{this.props.name}</li>;
   }
